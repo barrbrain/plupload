@@ -163,7 +163,7 @@
 				uploader.bind("Flash:UploadProcess", function(up, flash_file) {
 					var file = up.getFile(lookup[flash_file.id]);
 
-					if (file.status != plupload.FAILED) {
+					if (file && file.status != plupload.FAILED) {
 						file.loaded = flash_file.loaded;
 						file.size = flash_file.size;
 
@@ -183,7 +183,7 @@
 					up.trigger('ChunkUploaded', file, chunkArgs);
 
 					// Stop upload if file is maked as failed
-					if (file.status != plupload.FAILED) {
+					if (file && file.status != plupload.FAILED) {
 						getFlashObj().uploadNextChunk();
 					}
 
