@@ -252,7 +252,12 @@
 				}
 
 				xhr.onreadystatechange = function() {
-					var httpStatus = xhr.status;
+					var httpStatus;
+					try {
+						httpStatus = xhr.status;
+					} catch (e) {
+						httpStatus = 0;
+					}
 
 					if (xhr.readyState == 4) {
 						file.status = plupload.DONE;
