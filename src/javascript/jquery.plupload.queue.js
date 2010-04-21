@@ -272,10 +272,21 @@
 				}
 
 				uploader.bind("Error", function(up, err) {
-					var file = err.file, message;
+					var file = err.file, message, response;
+
+					if (err.response) {
+						try {
+							response = (new Function('return ' + err.response)());
+						} catch (e) {
+						}
+					}
 
 					if (file) {
-						message = err.message;
+						if (response && response.error && response.error.message) {
+							message = response.error.message ;
+						} else {
+							message = err.message;
+						}
 						
 						if (err.details) {
 							message += " (" + err.details + ")";
@@ -304,7 +315,7 @@
 					}
 				});
 
-				uploader.bind('FileUploaded', function(up, file) {
+				uploader.bind('FileUploaded', function(up, file, response) {
 					handleStatus(file);
 				});
 

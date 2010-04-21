@@ -274,6 +274,7 @@
 								code : plupload.HTTP_ERROR,
 								message : 'HTTP Error.',
 								file : file,
+								response : xhr.responseText,
 								status : httpStatus
 							});
 						}
